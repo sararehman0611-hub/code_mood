@@ -1,0 +1,43 @@
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+  cursor: default;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.tag-pill.removable {
+  cursor: pointer;
+}
+
+.tag-pill.removable:hover {
+  filter: brightness(1.2);
+}
+
+.tag-pill .tag-remove {
+  display: none;
+  font-size: 13px;
+  line-height: 1;
+  margin-left: 2px;
+  opacity: 0.7;
+}
+
+.tag-pill.removable:hover .tag-remove {
+  display: inline;
+}
+
+.tag-pill.clickable {
+  cursor: pointer;
+}
+
+.tag-pill.clickable:hover {
+  transform: scale(1.05);
+}
