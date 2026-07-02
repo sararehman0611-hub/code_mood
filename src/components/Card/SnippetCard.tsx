@@ -174,13 +174,20 @@ export function SnippetCard({ card }: SnippetCardProps) {
     >
       {/* Header */}
       <div className="card-header" onMouseDown={handleDragStart}>
-        <input
-          className="card-title"
-          value={card.title}
-          placeholder="Untitled"
-          onChange={(e) => updateCard(card.id, { title: e.target.value })}
-          onClick={(e) => e.stopPropagation()}
-        />
+        {isActive ? (
+          <input
+            className="card-title"
+            value={card.title}
+            placeholder="Untitled"
+            onChange={(e) => updateCard(card.id, { title: e.target.value })}
+            onClick={(e) => e.stopPropagation()}
+            autoFocus
+          />
+        ) : (
+          <span className="card-title card-title-view">
+            {card.title || 'Untitled'}
+          </span>
+        )}
         <div className="card-header-actions">
           <button
             className={`card-action-btn ${copied ? 'copied' : ''}`}
@@ -263,18 +270,24 @@ export function SnippetCard({ card }: SnippetCardProps) {
 
       {/* Footer */}
       <div className="card-footer">
-        <select
-          className="card-language-select"
-          value={card.language}
-          onChange={(e) => updateCard(card.id, { language: e.target.value })}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {LANGUAGES.map((lang) => (
-            <option key={lang.value} value={lang.value}>
-              {lang.label}
-            </option>
-          ))}
-        </select>
+        {isActive ? (
+          <select
+            className="card-language-select"
+            value={card.language}
+            onChange={(e) => updateCard(card.id, { language: e.target.value })}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {LANGUAGES.map((lang) => (
+              <option key={lang.value} value={lang.value}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <span className="card-language-select card-language-view">
+            {LANGUAGES.find((lang) => lang.value === card.language)?.label ?? card.language}
+          </span>
+        )}
       </div>
 
       {/* Resize handle */}

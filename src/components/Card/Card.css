@@ -66,6 +66,14 @@
   color: var(--text-muted);
 }
 
+.card-title-view {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
+}
+
 .card-header-actions {
   display: flex;
   align-items: center;
@@ -159,6 +167,10 @@
 .card-language-select:focus {
   border-color: var(--accent-purple);
   color: var(--text-primary);
+}
+
+.card-language-view {
+  cursor: default;
 }
 
 /* Tag area */

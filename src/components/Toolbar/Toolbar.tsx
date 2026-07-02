@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect } from 'react';
 import { useStore } from '../../store/useStore';
-import { downloadJSON, parseImportJSON } from '../../utils/exportImport';
+import { downloadJSON } from '../../utils/exportImport';
 import Fuse from 'fuse.js';
 import './Toolbar.css';
 
@@ -11,12 +11,10 @@ export function Toolbar() {
   const setSearchQuery = useStore((s) => s.setSearchQuery);
   const setMatchingCardIds = useStore((s) => s.setMatchingCardIds);
   const addCard = useStore((s) => s.addCard);
-  const importCards = useStore((s) => s.importCards);
   const toggleSidebar = useStore((s) => s.toggleSidebar);
   const sidebarOpen = useStore((s) => s.sidebarOpen);
 
   const searchRef = useRef<HTMLInputElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const fuseRef = useRef<Fuse<typeof cards[0]> | null>(null);
 
   // Initialize fuse
@@ -65,25 +63,7 @@ export function Toolbar() {
     downloadJSON(cards, groups);
   };
 
-  // Import
-  const handleImport = () => {
-    fileInputRef.current?.click();
-  };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const json = ev.target?.result as string;
-      const data = parseImportJSON(json);
-      if (data) {
-        importCards(data.cards, data.groups);
-      }
-    };
-    reader.readAsText(file);
-    e.target.value = '';
-  };
 
   return (
     <div className="toolbar">
@@ -131,13 +111,7 @@ export function Toolbar() {
 
       <div className="toolbar-divider" />
 
-      <button className="toolbar-icon-btn" onClick={handleImport} title="Import JSON">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-          <polyline points="7 10 12 15 17 10" />
-          <line x1="12" y1="15" x2="12" y2="3" />
-        </svg>
-      </button>
+
       <button className="toolbar-icon-btn" onClick={handleExport} title="Export JSON">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
@@ -152,13 +126,7 @@ export function Toolbar() {
         {cards.length} card{cards.length !== 1 ? 's' : ''} · {groups.length} group{groups.length !== 1 ? 's' : ''}
       </span>
 
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept=".json"
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
+
     </div>
   );
 }
