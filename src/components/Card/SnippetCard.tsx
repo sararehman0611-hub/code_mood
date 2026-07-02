@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { useStore } from '../../store/useStore';
 import { TagPill } from '../TagPill/TagPill';
 import { LANGUAGES, MIN_CARD_WIDTH, MIN_CARD_HEIGHT } from '../../utils/constants';
