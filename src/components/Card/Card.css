@@ -1,0 +1,235 @@
+.snippet-card {
+  position: absolute;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: default;
+  transition: box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+  box-shadow: var(--shadow-card);
+  user-select: none;
+}
+
+.snippet-card:hover {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.snippet-card.active {
+  border-color: var(--accent-purple);
+  box-shadow: var(--shadow-card-active);
+  z-index: var(--z-card-active);
+}
+
+.snippet-card.dimmed {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.snippet-card.dragging {
+  opacity: 0.9;
+  cursor: grabbing;
+  z-index: 999;
+  transition: none;
+}
+
+/* Card header */
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px 6px;
+  gap: 8px;
+  cursor: grab;
+}
+
+.card-header:active {
+  cursor: grabbing;
+}
+
+.card-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  min-width: 0;
+  cursor: text;
+  font-family: var(--font-sans);
+}
+
+.card-title::placeholder {
+  color: var(--text-muted);
+}
+
+.card-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.snippet-card:hover .card-header-actions,
+.snippet-card.active .card-header-actions {
+  opacity: 1;
+}
+
+.card-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.card-action-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.card-action-btn.copied {
+  color: var(--accent-green);
+}
+
+.card-action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Code preview (compact mode) */
+.card-code-preview {
+  flex: 1;
+  padding: 0 12px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-code);
+  white-space: pre;
+  cursor: pointer;
+  position: relative;
+}
+
+.card-code-preview::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, var(--bg-card));
+  pointer-events: none;
+}
+
+/* Monaco editor (edit mode) */
+.card-editor {
+  flex: 1;
+  min-height: 150px;
+  overflow: hidden;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* Language selector */
+.card-language-select {
+  padding: 3px 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  appearance: none;
+  transition: all var(--transition-fast);
+}
+
+.card-language-select:hover {
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+.card-language-select:focus {
+  border-color: var(--accent-purple);
+  color: var(--text-primary);
+}
+
+/* Tag area */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 8px 12px;
+  align-items: center;
+}
+
+.card-tag-input {
+  flex: 1;
+  min-width: 60px;
+  padding: 2px 4px;
+  font-size: 11px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  outline: none;
+  font-family: var(--font-sans);
+}
+
+.card-tag-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Resize handle */
+.card-resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.snippet-card:hover .card-resize-handle {
+  opacity: 0.5;
+}
+
+.card-resize-handle::before,
+.card-resize-handle::after {
+  content: '';
+  position: absolute;
+  background: var(--text-muted);
+  border-radius: 1px;
+}
+
+.card-resize-handle::before {
+  bottom: 4px;
+  right: 4px;
+  width: 8px;
+  height: 1.5px;
+  transform: rotate(-45deg);
+}
+
+.card-resize-handle::after {
+  bottom: 7px;
+  right: 4px;
+  width: 5px;
+  height: 1.5px;
+  transform: rotate(-45deg);
+}
+
+/* Card footer with language */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px 8px;
+}
